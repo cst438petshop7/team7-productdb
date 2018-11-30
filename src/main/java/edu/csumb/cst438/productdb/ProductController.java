@@ -13,7 +13,7 @@ import edu.csumb.cst438.productdb.products.Product;
 public class ProductController {
     @Autowired
     IProductRepository productRepository;
-    
+     
     @CrossOrigin(origins = "*") 
     @GetMapping ("/allProducts") 
     public List<Product> getAllProducts() {
