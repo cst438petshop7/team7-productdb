@@ -22,13 +22,13 @@ public class ProductController {
         return products;
     }
     
-
+    @CrossOrigin(origins = "*") 
     @GetMapping ("/id/{id}")
     public Product getProductById (@PathVariable String id) {
         Product result = productRepository.findByRepoId(id);
         return result;
     }
-
+    @CrossOrigin(origins = "*") 
     @GetMapping ("/name/{name}")
     public Product getProductByProductName (@PathVariable String name) {
         Product result = productRepository.findByProductName(name);
