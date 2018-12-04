@@ -45,4 +45,8 @@ public class Product {
         return this.stock;
     }
 
+    public void setStock(Stock stock) {
+        this.stock = stock;
+    }
+
 }
