@@ -43,12 +43,12 @@ public class ProductController {
 
     @CrossOrigin(origins = "*")
     @GetMapping("/update/{id}/{amount}")
-    ResponseEntity<Product> updateProduct(@PathVariable String id, @PathVariable int amount) {
+    public Product updateProduct(@PathVariable String id, @PathVariable int amount) {
         Product productData = productRepository.findByRepoId(id);
-        if (productData == null) { return new ResponseEntity<>(HttpStatus.NOT_FOUND); }
+        if (productData == null) { return null; }
         productData.setStock(new Stock(productData.getStock().getStock() - amount));
-        productRepository.save(productData);
-        return new ResponseEntity<>(HttpStatus.OK);
+        Product updatedProduct = productRepository.save(productData);
+        return updatedProduct;
     }
 
 }
