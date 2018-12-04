@@ -8,8 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import edu.csumb.cst438.productdb.products.Product;
@@ -43,12 +41,12 @@ public class ProductController {
 
     @CrossOrigin(origins = "*")
     @GetMapping("/update/{id}/{amount}")
-    public Product updateProduct(@PathVariable String id, @PathVariable int amount) {
+    ResponseEntity<Product> updateProduct(@PathVariable String id, @PathVariable int amount) {
         Product productData = productRepository.findByRepoId(id);
-        if (productData == null) { return null; }
+        if (productData == null) { return new ResponseEntity<>(HttpStatus.NOT_FOUND); }
         productData.setStock(new Stock(productData.getStock().getStock() - amount));
-        Product updatedProduct = productRepository.save(productData);
-        return updatedProduct;
+        productRepository.save(productData);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }
