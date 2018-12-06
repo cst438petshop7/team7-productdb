@@ -49,4 +49,14 @@ public class ProductController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @CrossOrigin(origins = "*")
+    @GetMapping("/increase/{id}/{amount}")
+    ResponseEntity<Product> increaseProduct(@PathVariable String id, @PathVariable int amount) {
+        Product productData = productRepository.findByRepoId(id);
+        if (productData == null) { return new ResponseEntity<>(HttpStatus.NOT_FOUND); }
+        productData.setStock(new Stock(productData.getStock().getStock() + amount));
+        productRepository.save(productData);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
 }
